@@ -1,0 +1,55 @@
+diff -ruN a/drivers/hello/hello.c b/drivers/hello/hello.c
+--- a/drivers/hello/hello.c	1970-01-01 02:00:00.000000000 +0200
++++ b/drivers/hello/hello.c	2026-11-16 23:10:49.376410833 +0200
+@@ -0,0 +1,19 @@
++#include <linux/init.h>
++#include <linux/module.h>
++#include <linux/kernel.h>
++
++static int __init hello_init(void) {
++    printk(KERN_INFO "Hello World\n");
++    return 0;
++}
++
++static void __exit hello_exit(void) {
++    printk(KERN_INFO "Bye Bye World\n");
++}
++
++module_init(hello_init);
++module_exit(hello_exit);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Student");
++MODULE_DESCRIPTION("Simple Hello World Kernel Module");
+diff -ruN a/drivers/hello/Kconfig b/drivers/hello/Kconfig
+--- a/drivers/hello/Kconfig	1970-01-01 02:00:00.000000000 +0200
++++ b/drivers/hello/Kconfig	2026-11-16 23:10:49.377403462 +0200
+@@ -0,0 +1,5 @@
++config HELLO_WORLD
++	tristate "Hello World kernel module"
++	default n
++	help
++		A simple Hello World kernel module.
+diff -ruN a/drivers/hello/Makefile b/drivers/hello/Makefile
+--- a/drivers/hello/Makefile	1970-01-01 02:00:00.000000000 +0200
++++ b/drivers/hello/Makefile	2026-11-16 23:10:49.376410833 +0200
+@@ -0,0 +1 @@
++obj-$(CONFIG_HELLO_WORLD) += hello.o
+diff -ruN a/drivers/Kconfig b/drivers/Kconfig
+--- a/drivers/Kconfig	2025-12-09 17:09:13.000000000 +0200
++++ b/drivers/Kconfig	2026-11-16 23:10:36.033496353 +0200
+@@ -245,4 +245,6 @@
+ 
+ source "drivers/dpll/Kconfig"
+ 
++source "drivers/hello/Kconfig"
++
+ endmenu
+diff -ruN a/drivers/Makefile b/drivers/Makefile
+--- a/drivers/Makefile	2025-12-09 17:09:13.000000000 +0200
++++ b/drivers/Makefile	2026-11-16 23:10:26.571759931 +0200
+@@ -195,3 +195,4 @@
+ obj-$(CONFIG_DPLL)		+= dpll/
+ 
+ obj-$(CONFIG_S390)		+= s390/
++obj-$(CONFIG_HELLO_WORLD)	+= hello/
