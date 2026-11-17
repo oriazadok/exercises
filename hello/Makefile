@@ -1,1 +1,1 @@
-obj-$(CONFIG_HELLO_WORLD) += hello.o
+obj-m += hello.o
