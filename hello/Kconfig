@@ -1,5 +1,0 @@
-config HELLO_WORLD
-	tristate "Hello World kernel module"
-	default n
-	help
-		A simple Hello World kernel module.

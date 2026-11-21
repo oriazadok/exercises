@@ -1,0 +1,4 @@
+config HELLO
+	tristate "Hello world module"
+	help
+	  prints hello world on load and bye bye world on unload
